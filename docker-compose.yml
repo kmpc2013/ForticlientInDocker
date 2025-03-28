@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  forticlient:
+    build: .
+    container_name: forticlient
+    privileged: true
+    networks:
+      fortinet:
+        ipv4_address: 172.21.0.2
+    ports:
+      - 2222:22
+    env_file:
+      - .env
+    restart: unless-stopped
+
+networks:
+  fortinet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/24
